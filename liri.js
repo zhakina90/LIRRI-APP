@@ -57,14 +57,14 @@ function concertThis() {
 }
 
 
-function spotifyThisSong() {
+function spotifyThisSong(testQuery) {
     var spotify = new Spotify(keys.spotify);
-    var userSong = process.argv[4];
+    // var userSong = process.argv[4];
     if (!userSong) {
         userSong = "The Sign";
     }
 
-    spotify.search({ type: 'track', query: userSong, limit: 1 }, function (err, data) {
+    spotify.search({ type: 'track', query: testQuery, limit: 1 }, function (err, data) {
 
         if (err) {
             return console.log("Error:" + err);
@@ -72,8 +72,8 @@ function spotifyThisSong() {
         } else {
             var spotifyData = data.tracks.items;
             console.log(spotifyData)
-            var spotifyResult = "Artist:" + spotifyData[0].artist[0].name +
-                "\nThe song name: " + spotifyData[0].external_urls.name +
+            var spotifyResult = "Artist:" + spotifyData[0].artists[0].name +
+                "\nThe song name: " + spotifyData[0].name +
                 "\nLink of the song:" + spotifyData[0].preview_url +
                 "\nThe Album of the Song:"
             console.log(spotifyResult);
